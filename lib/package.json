@@ -1,0 +1,52 @@
+{
+    "name": "cli",
+    "description": "command line interface for ductape",
+    "version": "0.0.1",
+    "license": "MIT",
+    "bin": {
+        "cli": "lib/index.js",
+        "ductape": "lib/index.js"
+    },
+    "author": {
+        "name": "Sanni Oluwafikayo",
+        "email": "sanni.oluwafikayo@gmail.com",
+        "url": "https://fikayo.sanni.com"
+    },
+    "keywords": [
+        "cli",
+        "Sanni Oluwafikayo"
+    ],
+    "files": [
+        "index.js",
+        "utils"
+    ],
+    "scripts": {
+        "build": "tsc",
+        "format": "prettier --write \"./**/*.{js,json}\""
+    },
+    "dependencies": {
+        "await-to-js": "^3.0.0",
+        "axios": "^1.3.2",
+        "chalk": "^4.1.2",
+        "cli-alert": "^1.0.3",
+        "cli-alerts": "^1.2.2",
+        "cli-handle-error": "^4.4.0",
+        "cli-handle-unhandled": "^1.1.1",
+        "cli-meow-help": "^3.1.0",
+        "cli-progress": "^3.11.2",
+        "cli-should-cancel": "^1.0.3",
+        "cli-welcome": "^2.2.2",
+        "data-store": "^4.0.3",
+        "enquirer": "^2.3.6",
+        "execa": "^6.1.0",
+        "meow": "^9.0.0",
+        "ora": "^6.1.2",
+        "prompts": "^2.4.2",
+        "typescript": "^4.9.5"
+    },
+    "devDependencies": {
+        "@types/cli-welcome": "^2.2.0",
+        "@types/node": "^18.13.0",
+        "prettier": "^2.8.4"
+    }
+}
