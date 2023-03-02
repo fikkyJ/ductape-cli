@@ -11,8 +11,10 @@ import init from "./utils/init.utils";
 import cli from "./utils/cli.utils";
 import log from "./utils/log.utils";
 import login from "./controllers/login.controllers";
+import signup from "./controllers/signup.controllers"
 import { chooseWorkspace, createNewWorkspace, fetchWorkspaceName, listWorkspaces } from "./controllers/workspaces.controller";
 import { createNewAccess } from "./controllers/access.controllers";
+import { createNewAction } from "./controllers/actions.controllers";
 import { retrieveUser } from "./storage/user.storage";
 import { createNewApp, listWorkspaceApps } from "./controllers/apps.controllers";
 import { retrieveDefaultWorkspaceId } from "./storage/workspaces.storage";
@@ -31,14 +33,20 @@ const { clear, debug } = flags;
 	const user = retrieveUser();
 
 	if(!user) await login();
+
 	if(input.includes('access')){
 		if(flags.new){
 			await createNewAccess(user, retrieveDefaultWorkspaceId());
 		} else {
 			cli.showHelp(0);
 		}
+
 	}else if(input.includes('login')){
 		await login();
+	
+	}else if(input.includes('signup')){
+		await signup()
+
 	}else if(input.includes('workspaces')) {
 	 	if(flags.select) 
 			await chooseWorkspace(user);
@@ -52,6 +60,7 @@ const { clear, debug } = flags;
 		} else {
 			cli.showHelp(0);
 		}
+
 	}else if(input.includes('apps')) {
 		// if()
 		if(flags.new)
@@ -62,9 +71,10 @@ const { clear, debug } = flags;
 		} else {
 			cli.showHelp(0);
 		}
+		
 	}else if(input.includes('actions')) {
 		if(flags.new){}
-			// await createNewAction(user);
+			await createNewAction(user);
 	}
  
 })();

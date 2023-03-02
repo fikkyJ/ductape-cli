@@ -7,7 +7,7 @@ import handleError from 'cli-handle-error';
 import shouldCancel from 'cli-should-cancel';
 
 
-export default async ({ name, message, hint, initial }: any) => {
+export default async ({ name, message, hint, initial, optional }: any) => {
 	let history: false | object = false;
 	const [err, response] = await to(
 		new Input({
@@ -17,6 +17,7 @@ export default async ({ name, message, hint, initial }: any) => {
 			initial,
 			history,
 			validate(value: string, state: any) {
+				if (optional && !value) return '';
 				return !value ? `Please add a value.` : true;
 			}
 		})

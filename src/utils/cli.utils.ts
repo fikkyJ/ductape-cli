@@ -38,6 +38,7 @@ const flags = {
 };
 
 const commands = {
+	signup: {desc: `User signup`},
 	login: {desc: `User login`},
 	access: {desc: `Workspace access operations`},
 	workspaces: {desc: `Workspace operations`},

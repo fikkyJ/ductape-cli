@@ -74,6 +74,14 @@ export const fetchApp = async (payload) => {
     }
 };
 
+export const fetchAppActions = async (payload) => {
+    try {
+        
+    } catch (e) {
+        throw e
+    }
+}
+
 export const fetchAppEnv = async (payload) => {
     try {
         const { token, user_id, public_key, env_id } = payload;

@@ -1,3 +1,5 @@
+import chalk from "chalk";
+import prompts from "prompts";
 import { createApp, fetchWorkspaceApps } from "../services/apps.service";
 import Progress from "../assets/progress.asset";
 import createQuestions from "../questions/apps.questions.create";
@@ -41,6 +43,43 @@ export const listWorkspaceApps = async (user: any, workspace_id: string) => {
         apps.map((app: any)=>{
             console.log(`->  ${g(`APP_ID: `)}${app._id} ${g('APP_NAME: ')}${app.app_name} ${g('ACTIVE: ')}${app.active} ${g('ENVS: ')}${app.envs.length}`);
         })
+    } catch (e: any) {
+        Progress.stop();
+        const error = e.response ? e.response.data.errors : e.toString();
+        console.log(`${r(`ERR: `)} ${error}`);       
+    }
+}
+
+
+export const selectWorkspaceApp = async (user: any, workspace_id: string) => {
+    try {
+
+        const {auth_token: token, _id: user_id, public_key} = user;
+
+        Progress.start();
+        Progress.update(50);
+        const res = await fetchWorkspaceApps({ token, user_id, public_key, workspace_id })
+        const apps = res.data.data
+        Progress.update(100);
+        Progress.stop();
+
+        let choices;
+        const newchoice = { title: 'Create a new app ', value: -1 }
+        if (apps.length) {
+            choices = apps.map((app: any) => ({ title: chalk`${app.app_name}`, value: app._id }))
+            choices.push(newchoice)
+        } else choices = [newchoice];
+
+        const { app_id } = await prompts([{
+            name: 'app_id',
+            type: 'select',
+            message: chalk`Select an app`,
+            initial: 0,
+            choices,
+        }]);
+
+        return app_id;
+
     } catch (e: any) {
         Progress.stop();
         const error = e.response ? e.response.data.errors : e.toString();

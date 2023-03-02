@@ -7,5 +7,6 @@ export const saveUser = (user: object) => {
 export const retrieveUser = () => {
     const user = store.get('user');
 
-    return JSON.parse(user)
+    if(user)
+        return JSON.parse(user)
 }
